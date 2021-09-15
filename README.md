@@ -171,7 +171,8 @@ vector<int> ivec1(10, 42);
 vector<int> ivec2{ 42, 42, 42, 42, 42, 42, 42, 42, 42, 42 };
 vector<int> ivec3;
 for (int i = 0; i < 10; ++i)
-	ivec3.push_back(42);```
+	ivec3.push_back(42);
+```   
 * 第一种方式最好。    
 		       
 ## 在100页的二分搜索程序中，为什么用的是 mid = beg + (end - beg) / 2, 而非 mid = (beg + end) / 2 ; ?
