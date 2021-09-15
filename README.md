@@ -173,4 +173,6 @@ vector<int> ivec3;
 for (int i = 0; i < 10; ++i)
 	ivec3.push_back(42);```
 * 第一种方式最好。  
-                       
+## 在100页的二分搜索程序中，为什么用的是 mid = beg + (end - beg) / 2, 而非 mid = (beg + end) / 2 ; ?
+
+> 因为迭代器支持的运算只有 - ，而没有 + 。end - beg 意思是相距若干个元素，将之除以2然后与beg相加，表示将beg移动到一半的位置。            
