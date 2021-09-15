@@ -21,5 +21,15 @@
 (a) int 型
 (b) unsigned int 型
 (c) double 型
-(d) double 型 
-
+(d) double 型   
+## 下列哪些（如果有）是非法的？
+(a) "Who goes with F\145rgus?\012"
+(b) 3.14e1L (c) "two" L"some"
+(d) 1024f (e) 3.14UL
+(f) "multiple line
+comment"
+* 【解答】
+ (c) 非法。因为字符串字面值与宽字符串字面值的连接是未定义的。
+(d) 非法。因为整数1024 后面不能带后缀f。
+(e) 非法。因为浮点字面值不能带后缀U。
+(f) 非法。因为分两行书写的字符串字面值必须在第一行的末尾加上反斜线。
