@@ -305,4 +305,40 @@ int main()
 	return 0;
 }
 ``` 
-## 
+## 编写3个不同版本的程序，令其均能输出ia的元素。版本1使用范围for语句管理迭代过程；版本2和版本3都使用普通for语句，其中版本2要求使用下标运算符，版本3要求使用指针。此外，在所有3个版本的程序中都要直接写出数据类型，而不能使用类型别名、auto关键字和decltype关键字。
+```cpp
+	#include <iostream>
+
+using std::cout;
+using std::endl;
+
+int main()
+{
+	int arr[3][4] =
+	{
+		{ 0, 1, 2, 3 },
+		{ 4, 5, 6, 7 },
+		{ 8, 9, 10, 11 }
+	};
+
+	// range for
+	for (const int(&row)[4] : arr)
+		for (int col : row) cout << col << " ";
+
+	cout << endl;
+
+	// for loop
+	for (size_t i = 0; i != 3; ++i)
+		for (size_t j = 0; j != 4; ++j) cout << arr[i][j] << " ";
+
+	cout << endl;
+
+	// using pointers.
+	for (int(*row)[4] = arr; row != arr + 3; ++row)
+		for (int *col = *row; col != *row + 4; ++col) cout << *col << " ";
+
+	cout << endl;
+
+	return 0;
+}
+```
