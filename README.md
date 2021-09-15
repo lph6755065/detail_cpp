@@ -132,3 +132,45 @@ ri 是i 的引用，对ri 进行赋值，实际上相当于对i 进行赋值，�
 * 类似 is >> s 的读取，string对象会忽略开头的空白并从第一个真正的字符开始，直到遇见下一空白为止。
 * 类似 getline(is, s) 的读取，string对象会从输入流中读取字符，直到遇见换行符为止。
 
+## 编写一段程序，读入一个包含标点符号的字符串，将标点符号去除后输出字符串剩余的部分。 
+```C++
+ string s = "this, is. a :string!";
+    string res;
+    for (auto c : s){
+        if(!ispunct(c)){
+            res += c;
+        }
+    }
+    cout << res << endl;
+```  
+## 下面的范围for语句合法吗？如果合法，c的类型是什么？  
+`const string s = "Keep out!";`
+`for(auto &c : s){ /* ... */ }` 
+要根据for循环中的代码来看是否合法，c是string 对象中字符的引用，s是常量。因此如果for循环中的代码重新给c赋值就会非法，如果不改变c的值，那么合法。  
+## 下列的vector对象各包含多少个元素？这些元素的值分别是多少？
+```cpp
+vector<int> v1;         // size:0,  no values.
+vector<int> v2(10);     // size:10, value:0
+vector<int> v3(10, 42); // size:10, value:42
+vector<int> v4{ 10 };     // size:1,  value:10
+vector<int> v5{ 10, 42 }; // size:2,  value:10, 42
+vector<string> v6{ 10 };  // size:10, value:""
+vector<string> v7{ 10, "hi" };  // size:10, value:"hi"
+vector<string> v8(10,"hi");    // size:10, value:"hi"  
+```
+## 下面的程序合法吗？如果不合法，你准备如何修改？
+
+vector<int> ivec;
+ivec[0] = 42;
+
+## 如果想定义一个含有10个元素的vector对象，所有元素的值都是42，请例举三种不同的实现方法，哪种方式更好呢？
+
+如下三种：
+```cpp
+vector<int> ivec1(10, 42);
+vector<int> ivec2{ 42, 42, 42, 42, 42, 42, 42, 42, 42, 42 };
+vector<int> ivec3;
+for (int i = 0; i < 10; ++i)
+	ivec3.push_back(42);```
+* 第一种方式最好。  
+                       
