@@ -39,3 +39,60 @@ int month =09, day = 07;
 如果上述定义有错的话，那么应该怎样改正呢?  
 * 【解答】  
 这两个定义不同。前者定义了两个int 型变量，初值分别为9 和7；后者也定义了两个int 型变量，其中day 被初始化为八进制值7；而month 的初始化有错：试图将month 初始化为八进制值09，但八进制数字范围为0~7，所以出错。可将第二个定义改为：int month =011, day = 07;  
+## 假设calc 是一个返回double 对象的函数。下面哪些是非法定义？改正所有的非法定义。 
+(a) int car = 1024, auto = 2048;  
+(b) int ival = ival;  
+(c) std::cin >> int input_value;  
+(d) double salary = wage = 9999.99;  
+(e) double calc = calc();  
+* 【解答】   
+(a) 非法：auto 是关键字，不能用作变量名。使用另一变量名，如aut 即可更正。  
+(c) 非法：>>运算符后面不能进行变量定义。改为：int input_value;std::cin >> input_value;  
+(d) 非法：同一定义语句中不同变量的初始化应分别进行。改为：double salary = 9999.99, wage = 9999.99;  
+注意，(b)虽然语法上没有错误，但这个初始化没有实际意义，ival 仍是未初始化的。  
+## 下列变量的初始值（如果有）是什么？  
+```C++
+std::string global_str;
+int global_int;
+int main()
+{
+int local_int;
+std::string local_str;
+// ...
+return 0;
+}
+```
+* 【解答】  
+global_str 和local_str 的初始值均为空字符串，global_int 的初始值为0，local_int 没有初始值。  
+## 解释下列例子中name 的意义： 
+extern std::string name;  
+std::string name("exercise 3.5a");  
+extern std::string name("exercise 3.5a");  
+* 【解答】  
+第一条语句是一个声明，说明std::string 变量name 在程序的其他地方定义。  
+第二条语句是一个定义，定义了std::string 变量name，并将name 初始化为"exercise 3.5a"。  
+第三条语句也是一个定义，定义了std::string 变量name，并将name 初始化为"exercise 3.5a"，但这个语句只能出现在函数外部（即，name 是一个全局变量）。  
+## 下列程序中j 的值是多少？  
+```C++
+int i = 42;
+int main()
+{
+int i = 100;
+int j = i;
+// ...
+}
+```
+* 【解答】  
+j 的值是100。j 的赋值所使用到的i 应该是main 函数中定义的局部变量i，因为局部变量的定义会屏蔽全局变量的定义。  
+## 下列程序段将会输出什么？  
+```C++ 
+int i = 100, sum = 0;
+for (int i = 0; i != 10; ++i)
+sum += i;
+std::cout << i << " " << sum << std::endl; 
+```
+* 【解答】  
+输出为：  
+100 45  
+for 语句中定义的变量i，其作用域仅限于for 语句内部。输出的i 值是for 语句之前所定义的变量i 的值。 *  
+## 
