@@ -189,3 +189,66 @@ unsigned buf_size = 1024;
 * (b) 合法。
 * (c) 非法。txt_size() 的值必须要到运行时才能得到。
 * (d) 非法。数组的大小应该是12。
+## 下列数组中元素的值是什么？
+```C++
+string sa[10];
+int ia[10];
+int main() {
+	string sa2[10];
+	int ia2[10];
+}
+```
+* 数组的元素会被默认初始化。sa 的元素值全部为空字符串，ia 的元素值全部为0。sa2 的元素值全部为空字符串，ia2 的元素值全部未定义。  
+## 相比于vector 来说，数组有哪些缺点，请例举一些。
+
+* 数组的大小是确定的。
+* 不能随意增加元素
+* 不允许拷贝和赋值
+## 假定p1 和 p2 都指向同一个数组中的元素，则下面程序的功能是什么？什么情况下该程序是非法的？
+* p1 += p2 - p1;
+* 将 p1 移动到 p2 的位置。任何情况下都合法。
+## 编写一段程序，比较两个数组是否相等。再写一段程序，比较两个vector对象是否相等。
+```cpp
+#include <iostream>
+#include <vector>
+#include <iterator>
+
+using namespace std;
+
+bool compare(int* const pb1, int* const pe1, int* const pb2, int* const pe2)
+{
+	if ((pe1 - pb1) != (pe2 - pb2)) 
+		return false;
+	else
+	{
+		for (int* i = pb1, *j = pb2; (i != pe1) && (j != pe2); ++i, ++j)
+		if (*i != *j) return false;
+	}
+
+	return true;
+}
+
+int main()
+{
+	int arr1[3] = { 0, 1, 2 };
+	int arr2[3] = { 0, 2, 4 };
+
+	if (compare(begin(arr1), end(arr1), begin(arr2), end(arr2)))
+		cout << "The two arrays are equal." << endl;
+	else
+		cout << "The two arrays are not equal." << endl;
+
+	cout << "==========" << endl;
+
+	vector<int> vec1 = { 0, 1, 2 };
+	vector<int> vec2 = { 0, 1, 2 };
+
+	if (vec1 == vec2)
+		cout << "The two vectors are equal." << endl;
+	else
+		cout << "The two vectors are not equal." << endl;
+
+	return 0;
+}
+		       
+```
