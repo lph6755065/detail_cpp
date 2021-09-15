@@ -15,5 +15,11 @@
 (b) 10,10u,10L,10uL,012,0xC  
 10 为int 型字面值，10u 为unsigned 型字面值，10L 为long 型字面值，10uL为unsigned long 型字面值，012 为八进制表示的int 型字面值，0xC 为十六进制表示的int 型字面值。  
 (c) 3.14,3.14f,3.14L  3.14 为double 型字面值，3.14f 为float 型字面值，3.14L 为long double 型字面值。  
-
+## 确定下列字面值常量的类型：
+(a) –10 (b) -10u (c) -10. (d) -10e-2  
+* 解答】
+(a) int 型
+(b) unsigned int 型
+(c) double 型
+(d) double 型 
 
