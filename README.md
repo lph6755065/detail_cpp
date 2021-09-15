@@ -258,3 +258,43 @@ int main()
 ## 请问为什么两个指针相加没有意义？
 * 将两个指针相减可以表示两个指针(在同一数组中)相距的距离，将指针加上一个整数也可以表示移动这个指针到某一位置。但是两个指针相加并没有逻辑上的意义，因此两个指针不能相加。
 	
+## 编写一段程序，用整型数组初始化一个vector对象。
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	int arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	vector<int> v(begin(arr), end(arr));
+
+	for (auto i : v) cout << i << " ";
+	cout << endl;
+
+	return 0;
+}
+```  
+## 编写一段程序，将含有整数元素的vector对象拷贝给一个整型数组。
+```cpp
+	
+	#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	vector<int> v{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	int arr[10];
+	for (int i = 0; i != v.size(); ++i) 
+		arr[i] = v[i];
+
+	for (auto i : arr) cout << i << " ";
+	cout << endl;
+
+	return 0;
+}
+``` 
+## 
