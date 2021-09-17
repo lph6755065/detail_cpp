@@ -591,6 +591,7 @@ int main() {
 
 ```  
 ### 小结：static_cast 强制类型转换时并不具有保证类型安全的功能，而 C++ 提供的 dynamic_cast 却能解决这一问题，dynamic_cast 可以在程序运行时检测类型转换是否类型安全。当然 dynamic_cast 使用起来也是有条件的，它要求所转换的 expression 必须包含多态类类型（即至少包含一个虚函数的类）。 去const属性用const_cast。基本类型转换用static_cast。多态类之间的类型转换用daynamic_cast。不同类型的指针类型转换用reinterpreter_cast。
+## 如果在程序的某个地方，语法上需要一条语句但是逻辑上不需要，此时应该使用空语句。
+`while (cin >> s && s != sought) ;`
 
-
-
+ 
