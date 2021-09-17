@@ -388,3 +388,209 @@ pi = 0;
 * (d)合法。判断迭代器当前的元素是否为空。
 * (e)不合法。string 类型没有 ++ 操作。
 (f)合法。判断迭代器当前元素是否为空，然后迭代器递增。
+## C语言中a&0x0表示什么？ a&0x01就是取a的最低位值的运算  
+```cpp
+	eg：
+（1）当a=0x00时
+a = a&0x01 ---> 0000 0000 = 0000 0000 & 0000 0001
+（2）当a=0x01时
+a = a&0x01 ---> 0000 0001 = 0000 0001 & 0000 0001
+（3）当a=0x11时
+a = a&0x01 ---> 0000 0001 = 0001 0001 & 0000 0001
+二：应用实例
+1.判断一个数是奇数还是偶数
+#include <stdio.h>
+#include <stdlib.h>
+int main (void)
+{
+	int i;
+	scanf ("%d",&i);
+	if (i&0x01)
+	printf("奇数\n");
+	else
+	printf("偶数\n");
+	system ("pause");
+	return 0;
+}
+2.取一个数的最低位的相反数
+Warm=(~Warm)&0x01;
+（1）当Warm=0x00时
+Warm=(~Warm)&0x01; ---> 0000 0001 = 1111 1111 & 0000 0001
+（2）当Warm=0x01时
+Warm=(~Warm)&0x01; ---> 0000 0000 = 1111 1110 & 0000 0001
+（3）当Warm=0x11时
+Warm=(~Warm)&0x01; ---> 0000 0000 = 1110 1110 & 0000 0001
+``` 
+## 注意代码可读性 
+```cpp
+#include <iostream>
+using std::cout; using std::cin; using std::endl;
+
+int main()
+{
+	for (unsigned g; cin >> g;)
+	{
+		auto result = g > 90 ? "high pass" : g < 60 ? "fail" : g < 75 ? "low pass" : "pass";
+		cout << result << endl;
+
+		// -------------------------
+		if (g > 90)         cout << "high pass";
+		else if (g < 60)    cout << "fail";
+		else if (g < 75)    cout << "low pass";
+		else                cout << "pass";
+		cout << endl;
+	}
+
+	return 0;
+}	
+```  
+## 因为运算符的优先级问题，下面这条表达式无法通过编译。根据4.12节中的表指出它的问题在哪里？应该如何修改？
+```cpp
+string s = "word";
+string pl = s + s[s.size() - 1] == 's' ? "" : "s" ;
+加法运算符的优先级高于条件运算符。因此要改为：
+
+string pl = s + (s[s.size() - 1] == 's' ? "" : "s") ;
+```   
+## 下列表达式的结果是什么？
+```cpp
+unsigned long ul1 = 3, ul2 = 7;
+(a) ul1 & ul2 
+(b) ul1 | ul2 
+(c) ul1 && ul2
+(d) ul1 || ul2 
+(a) 3
+(b) 7
+(c) true
+(d) ture
+```   
+## 在下述表达式的适当位置加上括号，使得加上括号之后的表达式的含义与原来的含义相同。
+```cpp
+(a) sizeof x + y      
+(b) sizeof p->mem[i]  
+(c) sizeof a < b     
+(d) sizeof f()  
+(a) (sizeof x) + y
+(b) sizeof(p->mem[i])
+(c) sizeof(a) < b
+(d) sizeof(f())
+```  
+## 说明下面这条表达式的含义。
+```cpp
+someValue ? ++x, ++y : --x, --y
+逗号表达式的优先级是最低的。因此这条表达式也等于：
+(someValue ? ++x, ++y : --x), --y
+```  
+## 假设有如下的定义：
+```cpp
+char cval;
+int ival;
+unsigned int ui;
+float fval;
+double dval;
+请回答在下面的表达式中发生了隐式类型转换吗？如果有，指出来。
+
+(a) cval = 'a' + 3;
+(b) fval = ui - ival * 1.0;
+(c) dval = ui * fval;
+(d) cval = ival + fval + dval;
+(a) 'a' 转换为 int ，然后与 3 相加的结果转换为 char
+(b) ival 转换为 double，ui 转换为 double，结果转换为 float
+(c) ui 转换为 float，结果转换为 double
+(d) ival 转换为 float，与fval相加后的结果转换为 double，最后的结果转换为char
+```  
+## 用命名的强制类型转换改写下列旧式的转换语句。
+```cpp
+int i; double d; const string *ps; char *pc; void *pv;
+(a) pv = (void*)ps;
+(b) i = int(*pc);
+(c) pv = &d;
+(d) pc = (char*)pv;
+改写之后的
+(a) pv = static_cast<void*>(const_cast<string*>(ps));
+(b) i = static_cast(*pc);
+(c) pv = static_cast<void*>(&d);
+(d) pc = static_cast<char*>(pv);
+
+```  
+## C++ 四种强制类型转换 1、static_cast，2、const_cast，3、reinterpret_cast，4、dynamic_cast
+###1）static_cast 用法为 static_cast<type-id> (expression)。
+  * 该运算符把 expression 转换为 type-id 类型，但没有运行时类型检查来保证转换的安全性。
+#### 主要用法如下：
+    （1）用于类层次结构中基类（父类）和派生类（子类）之间指针或引用的转换。  
+        进行上行转换（把派生类的指针或引用转换成基类表示）是安全的；  
+        进行下行转换（把基类指针或引用转换成派生类表示）时，由于没有动态类型检查，所以是不安全的。  
+    （2）用于基本数据类型之间的转换，如把int转换成char，把int转换成enum。这种转换的安全性也要开发人员来保证。  
+    （3）把空指针转换成目标类型的空指针。  
+    （4）把任何类型的表达式转换成void类型。  
+  ```cpp
+最常用的应该还是基本数据类型之间的转换，如下：
+
+	const auto a1 = 11;	// int
+	const auto a2 = 4;	// int
+
+// C style
+	double res1 = (double)(a1) / (double)(a2);	// 其实写一个 (double) 就行
+	cout << "res1 = " << res1 << endl;			// res1 = 2.75
+
+// C++ style
+	auto res2 = static_cast<double>(a1) / static_cast<double>(a2);
+	cout << "res2 = " << res2 << endl;			// res2 = 2.75
+	cout << typeid(res2).name() << endl;		// double
+
+```  
+### 2）const_cast 上边的 static_cast 不能将 const int* 转成 int*，const_cast 就可以，用法为 const_cast<type-i> (expression)    
+	#### const_cast<>里边的内容必须是引用或者指针，就连把 int 转成 int 都不行。一般的，只是转换类型，但是指向的地址不变。
+```cpp
+const int a = 10;
+	const int * p = &a;
+	*p = 20;						 // Compile error: Cannot assign readonly type 'int const'
+	int res1 = const_cast<int>(a);   // Compile error: Cannot cast from 'int' to 'int' via const_cast
+									 // only conversions to reference or pointer types are allowed
+	int* res2 = const_cast<int*>(p); // ok
+
+```  
+### 3）reinterpret_cast  reinterpret_cast 主要有三种强制转换用途：
+ * 1、改变指针或引用的类型
+ * 2、将指针或引用转换为一个足够长度的整形
+ * 3、将整型转换为指针或引用类型。
+ * 用法为 reinterpret_cast <type-id> (expression)。
+   - type-id 必须是一个指针、引用、算术类型、函数针或者成员指针。它可以把一个指针转换成一个整数，也可以把一个整数转换成一个指针（先把一个指针转换成一个整数，在把该整数转换成原类型的指针，还可以得到原先的指针值）。 
+   - 我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。(这句话是C++编程思想中的原话)。因此, 你需要谨慎使用 reinterpret_cast。
+### 4）dynamic_cast 
+    * 用法为 dynamic_cast<type-id> (expression)。
+  * 几个特点如下：
+  *（1）其他三种都是编译时完成的，dynamic_cast 是运行时处理的，运行时要进行类型检查。
+  *（2）不能用于内置的基本数据类型的强制转换
+  *（3）dynamic_cast 要求 <> 内所描述的目标类型必须为指针或引用。dynamic_cast 转换如果成功的话返回的是指向类的指针或引用，转换失败的话则会返回 nullptr
+  *（4）在类的转换时，在类层次间进行上行转换（子类指针指向父类指针）时，dynamic_cast 和 static_cast 的效果是一样的。在进行下行转换（父类指针转化为子类指针）时，dynamic_cast 具有类型检查的功能，比 static_cast 更安全。 向下转换的成功与否还与将要转换的类型有关，即要转换的指针指向的对象的实际类型与转换以后的对象类型一定要相同，否则转换失败。在C++中，编译期的类型转换有可能会在运行时出现错误，特别是涉及到类对象的指针或引用操作时，更容易产生错误。Dynamic_cast操作符则可以在运行期对可能产生问题的类型转换进行测试。
+  * （5）使用 dynamic_cast 进行转换的，基类中一定要有虚函数，否则编译不通过（类中存在虚函数，就说明它有想要让基类指针或引用指向派生类对象的情况，此时转换才有意义）。这是由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表中，只有定义了虚函数的类才有虚函数表（C++中的虚函数基本原理这篇文章写得不错，https://blog.csdn.net/xiejingfa/article/details/50454819）。
+```cpp
+	class base {
+public:
+	void print1() { cout << "in class base" << endl; }
+};
+
+class derived : public base {
+public:
+	void print2() { cout << "in class derived" << endl; }
+};
+
+int main() {
+	derived *p, *q;
+	// p = new base;	//  Compilr Error: 无法从 "base * " 转换为 "derived * "
+
+	// Compile Error: Cannot cast from 'base*' to 'derived*' via dynamic_cast: expression type is not polymorphic(多态的)
+	// p = dynamic_cast<derived *>(new base);
+
+	q = static_cast<derived*>(new base);	// ok, but not recommended
+
+	q->print1();	// in class base
+	q->print2();	// in class derived
+}
+
+```  
+### 小结：static_cast 强制类型转换时并不具有保证类型安全的功能，而 C++ 提供的 dynamic_cast 却能解决这一问题，dynamic_cast 可以在程序运行时检测类型转换是否类型安全。当然 dynamic_cast 使用起来也是有条件的，它要求所转换的 expression 必须包含多态类类型（即至少包含一个虚函数的类）。 去const属性用const_cast。基本类型转换用static_cast。多态类之间的类型转换用daynamic_cast。不同类型的指针类型转换用reinterpreter_cast。
+
+
+
