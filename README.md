@@ -593,5 +593,11 @@ int main() {
 ### 小结：static_cast 强制类型转换时并不具有保证类型安全的功能，而 C++ 提供的 dynamic_cast 却能解决这一问题，dynamic_cast 可以在程序运行时检测类型转换是否类型安全。当然 dynamic_cast 使用起来也是有条件的，它要求所转换的 expression 必须包含多态类类型（即至少包含一个虚函数的类）。 去const属性用const_cast。基本类型转换用static_cast。多态类之间的类型转换用daynamic_cast。不同类型的指针类型转换用reinterpreter_cast。
 ## 如果在程序的某个地方，语法上需要一条语句但是逻辑上不需要，此时应该使用空语句。
 `while (cin >> s && s != sought) ;`
+## 说明下列例子的含义，如果存在问题，试着修改它。
 
+`(a) while (string::iterator iter != s.end()) { /* . . . */ }`  
+`(b) while (bool status = find(word)) { /* . . . */ }`  
+		`if (!status) { /* . . . */ }`
+* (a) 这个循环试图用迭代器遍历string，但是变量的定义应该放在循环的外面，目前每次循环都会重新定义一个变量，明显是错误的。
+* (b) 这个循环的 while 和 if 是两个独立的语句，if 语句中无法访问 status 变量，正确的做法是应该将 if 语句包含在 while 里面，
  
