@@ -600,4 +600,38 @@ int main() {
 		`if (!status) { /* . . . */ }`
 * (a) 这个循环试图用迭代器遍历string，但是变量的定义应该放在循环的外面，目前每次循环都会重新定义一个变量，明显是错误的。
 * (b) 这个循环的 while 和 if 是两个独立的语句，if 语句中无法访问 status 变量，正确的做法是应该将 if 语句包含在 while 里面，
- 
+## 学生成绩显示小程序 
+```cpp
+	#include<iostream>
+#include<string>
+#include<vector>
+#include<map>
+using namespace std;
+int main()
+{
+    vector<string> scores = { "F", "D", "C", "B", "A", "A++" };
+    int count = 0;
+    int grade = 0;
+
+    while ( 1 ) {
+        cin >> grade;
+        if ( grade > 100){
+            count++;
+            cout << "your choices have : :"<< 5 - count  << endl;
+            if (5 - count > 0)
+            cout << "coutinue print grade :"<< endl;
+            
+            if (count >= 5){
+                cout << "your choices have finished:"<< endl;
+                break;
+            }
+        }else{
+
+                string lettergrade = grade < 60 ? scores[0] : scores[(grade - 50) / 10];
+                lettergrade += (grade == 100 || grade < 60) ? "" : (grade % 10 > 7) ? "+" : (grade % 10 < 3) ? "-" : "";
+                cout << lettergrade << endl;
+        }
+    }
+    return 0;
+}
+```
