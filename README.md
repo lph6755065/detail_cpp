@@ -602,10 +602,8 @@ int main() {
 * (b) 这个循环的 while 和 if 是两个独立的语句，if 语句中无法访问 status 变量，正确的做法是应该将 if 语句包含在 while 里面，
 ## 学生成绩显示小程序 
 ```cpp
-	#include<iostream>
+#include<iostream>
 #include<string>
-#include<vector>
-#include<map>
 using namespace std;
 int main()
 {
