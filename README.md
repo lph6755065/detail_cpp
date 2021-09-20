@@ -773,3 +773,36 @@ int main()
 	return 0;
 }
 ```
+## 下面的这个函数虽然合法，但是不算特别有用。指出它的局限性并设法改善。
+
+`bool is_empty(string& s) { return s.empty(); }`
+局限性在于常量字符串和字符串字面值无法作为该函数的实参，如果下面这样调用是非法的：
+
+`const string str;`
+`bool flag = is_empty(str); `//非法
+`bool flag = is_empty("hello");` //非法
+所以要将这个函数的形参定义为常量引用：
+`bool is_empty(const string& s) { return s.empty(); }`
+## 编写一个函数，令其交换两个int指针。
+```cpp
+	#include <iostream>
+#include <string>
+
+void swap(int*& lft, int*& rht)
+{
+	auto tmp = lft;
+	lft = rht;
+	rht = tmp;
+}
+
+int main()
+{
+	int i = 42, j = 99;
+	auto lft = &i;
+	auto rht = &j;
+	swap(lft, rht);
+	std::cout << *lft << " " << *rht << std::endl;
+
+	return 0;
+}
+	```
