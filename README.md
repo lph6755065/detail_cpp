@@ -678,4 +678,75 @@ int main()
             break;
     }
 ```
-## 
+## 说明下列循环的含义并改正其中的错误。
+```cpp
+(a) for (int ix = 0; ix != sz; ++ix) { /* ... */ }
+    if (ix != sz)
+    	// . . .
+(b) int ix;
+    for (ix != sz; ++ix) { /* ... */ }
+(c) for (int ix = 0; ix != sz; ++ix, ++sz) { /*...*/ }
+应该改为下面这样：
+
+(a) int ix;
+    for (ix = 0; ix != sz; ++ix)  { /* ... */ }
+    if (ix != sz)
+    // . . .
+(b) int ix;
+    for (; ix != sz; ++ix) { /* ... */ }
+(c) for (int ix = 0; ix != sz; ++ix) { /*...*/ }
+```
+## 假设有两个包含整数的vector对象，编写一段程序，检验其中一个vector对象是否是另一个的前缀。为了实现这一目标，对于两个不等长的vector对象，只需挑出长度较短的那个，把它的所有元素和另一个vector对象比较即可。例如，如果两个vector对象的元素分别是0、1、1、2 和 0、1、1、2、3、5、8，则程序的返回结果为真。
+```cpp
+#include <iostream>
+#include <vector>
+
+using std::cout; using std::vector;
+
+bool is_prefix(const vector<int>& lhs, const vector<int>& rhs)
+{
+	if (lhs.size() > rhs.size())
+		return is_prefix(rhs, lhs);
+	for (unsigned i = 0; i != lhs.size(); ++i)
+		if (lhs[i] != rhs[i]) 
+			return false;
+	return true;
+}
+
+int main()
+{
+	vector<int> l{ 0, 1, 1, 2 };
+	vector<int> r{ 0, 1, 1, 2, 3, 5, 8 };
+	cout << (is_prefix(r, l) ? "yes\n" : "no\n");
+
+	return 0;
+}
+```  
+## 关于eof函数
+* fstream / ifstream / ofstream 类中的 成员函数eof()用来检测是否到达文件尾，如果到达文件尾返回非0值，否则返回0。原型是int eof(); 
+## 除法的异常检测操作 
+``cpp
+	#include <iostream>
+#include "stdexcept"
+using namespace std;
+
+int main(){
+  int i, j ;
+ while(cin >> i >> j){
+     try {
+         if (j == 0){
+             throw runtime_error("divisor is 0\n");
+         }
+         cout << i/j<<endl;
+     }catch(runtime_error err) {
+         cout << err.what() <<"Try Again or not ? Enter y or n" <<endl;
+         char c;
+         cin >> c;
+         if (c != 'y')
+             break;
+     }
+     cout << "please input two numbers : ";
+ }
+  return 0;
+}
+```
