@@ -750,3 +750,26 @@ int main(){
   return 0;
 }
 ```
+## 举一个形参应该是引用类型的例子，再举一个形参不能是引用类型的例子。
+例如交换两个整数的函数，形参应该是引用
+```cpp
+void swap(int& lhs, int& rhs)
+{
+	int temp = lhs;
+	lhs = rhs;
+	rhs = temp;
+}
+```
+当实参的值是右值时，形参不能为引用类型
+```cpp
+int add(int a, int b)
+{
+	return a + b;
+}
+
+int main()
+{
+	int i = add(1,2);
+	return 0;
+}
+```
