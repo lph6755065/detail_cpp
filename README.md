@@ -806,3 +806,20 @@ int main()
 	return 0;
 }
 	```
+## 描述下面这个函数的行为。如果代码中存在问题，请指出并改正。
+
+```cpp 
+void print(const int ia[10])
+{
+	for (size_t i = 0; i != 10; ++i)
+		cout << ia[i] << endl;
+}
+```
+当数组作为实参的时候，会被自动转换为指向首元素的指针。因此函数形参接受的是一个指针。如果要让这个代码成功运行，可以将实参改为数组的引用。
+```cpp
+void print(const int (&ia)[10])
+{
+	for (size_t i = 0; i != 10; ++i)
+		cout << ia[i] << endl;
+}
+```
