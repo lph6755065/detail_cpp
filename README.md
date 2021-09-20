@@ -725,8 +725,8 @@ int main()
 ## 关于eof函数
 * fstream / ifstream / ofstream 类中的 成员函数eof()用来检测是否到达文件尾，如果到达文件尾返回非0值，否则返回0。原型是int eof(); 
 ## 除法的异常检测操作 
-``cpp
-	#include <iostream>
+```cpp
+#include <iostream>
 #include "stdexcept"
 using namespace std;
 
