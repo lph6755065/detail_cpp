@@ -874,6 +874,16 @@ decltype(s)& fun();
 * (b) 非法。对于重载的函数来说，它们应该只有形参的数量和形参的类型不同。返回值与重载无关。
 * (c) 合法。
 * (d) 错误。因为一旦某个形参被赋予了默认值，那么它之后的形参都必须要有默认值。
+## 如果有非法的声明，请指出来。
+```cpp
+(a) int calc(int&, int&); 
+	int calc(const int&, const int&); 
+(b) int calc(char*, char*);
+	int calc(const char*, const char*);
+(c) int calc(char*, char*);
+	int calc(char* const, char* const);
+```
+* (c) 不合法。顶层const不影响传入函数的对象。
 ## 下面的哪个调用是非法的？为什么？哪个调用虽然合法但显然与程序员的初衷不符？为什么？
 ```cpp
 char *init(int ht, int wd = 80, char bckgrnd = ' ');
