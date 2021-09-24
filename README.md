@@ -900,3 +900,37 @@ char *init(int ht, int wd = 80, char bckgrnd = ' ');
 (b) void putValues(int *arr, int size);
 ```
 * 全部都放进头文件。(a) 是内联函数`(一般来说，内联机制用于优化规模小、流程直接、频繁调用的函数。)`，(b) 是声明。
+## 编写函数的声明，令其接受两个int形参并返回类型也是int；然后声明一个vector对象，令其元素是指向该函数的指针。
+```cpp
+	int func(int, int);
+	vector<decltype(func)*> v; //尖括号里面等同于：int (*)(int,int)
+```
+## 编写4个函数，分别对两个int值执行加、减、乘、除运算；在上一题创建的vector对象中保存指向这些函数的指针。
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+int multiply(int a, int b) { return a * b; }
+int divide(int a, int b) { return b != 0 ? a / b : 0; }
+
+int main()
+{
+	int func(int, int);
+	vector<decltype(func)*> v;
+	v.push_back(add);
+	v.push_back(subtract);
+	v.push_back(multiply);
+	v.push_back(divide);
+	
+	for (auto i : v)
+	{
+		cout << i(6, 2) << ", "; // 8, 4, 12, 3
+	}
+	cout << endl;
+	return 0;
+}
+```
