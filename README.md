@@ -946,3 +946,89 @@ int main()
 	* 与当前类有关的接口函数能直接访问类的私有变量。
 * 弊：
 	* 牺牲了封装性与可维护性。
+## 通过this指针使用成员的做法虽然合法，但是有点多余。讨论显示使用指针访问成员的优缺点。
+
+* 优点：
+
+	* 程序的意图更明确
+
+	* 函数的参数可以与成员同名，如
+
+  `void setAddr(const std::string &addr) { this->addr = addr; }`
+* 缺点：
+
+	* 有时候显得有点多余，如
+
+ ` std::string getAddr() const { return this->addr; }` 
+## 定义一对类X 和Y，其中X 包含一个指向 Y 的指针，而Y 包含一个类型为 X 的对象。
+```cpp
+class Y;
+class X{
+	Y* y = nullptr;	
+};
+
+class Y{
+	X x;
+};
+```  
+## 如果我们给Screen类添加一个如下所示的size成员将发生什么情况？如果出现了问题，请尝试修改它。
+```cpp
+pos Screen::size() const
+{
+	return height * width;
+}
+```
+* 未定义标识符 pos。应该改为：
+```cpp
+Screen::pos Screen::size() const
+{
+	return height * width;
+}
+```  
+## 解释下面代码的含义，说明其中的Type和initVal分别使用了哪个定义。如果代码存在错误，尝试修改它。
+```cpp
+typedef string Type;
+Type initVal(); 
+class Exercise {
+public:
+    typedef double Type;
+    Type setVal(Type);
+    Type initVal(); 
+private:
+    int val;
+};
+Type Exercise::setVal(Type parm) { 
+    val = parm + initVal();     
+    return val;
+}
+```
+*书上255页中说：
+	* 然而在类中，如果成员使用了外层作用域中的某个名字，而该名字代表一种类型，则类不能在之后重新定义该名字。因此重复定义 Type 是错误的行为。
+
+* 虽然重复定义类型名字是错误的行为，但是编译器并不为此负责。所以我们要人为地遵守一些原则.
+## 下面的初始值是错误的，请找出问题所在并尝试修改它。
+```cpp
+struct X {
+	X (int i, int j): base(i), rem(base % j) {}
+	int rem, base;
+};
+```
+应该改为：
+```cpp
+struct X {
+	X (int i, int j): base(i), rem(base % j) {}
+	int base, rem;
+};  
+
+```  
+## 下面哪些论断是不正确的？为什么？
+
+* (a) 一个类必须至少提供一个构造函数。
+* (b) 默认构造函数是参数列表为空的构造函数。
+* (c) 如果对于类来说不存在有意义的默认值，则类不应该提供默认构造函数。
+* (d) 如果类没有定义默认构造函数，则编译器将为其生成一个并把每个数据成员初始化成相应类型的默认值。
+	
+* (a) 不正确。如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数，并称之为合成的默认构造函数。
+* (b) 不完全正确。为每个参数都提供了默认值的构造函数也是默认构造函数。
+* (c) 不正确。哪怕没有意义的值也需要初始化。
+* (d) 不正确。只有当一个类没有定义任何构造函数的时候，编译器才会生成一个默认构造函数。
