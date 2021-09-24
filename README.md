@@ -847,3 +847,46 @@ int main()
     return 0;
 }
 ```
+## 编写一个函数声明，使其返回数组的引用并且该数组包含10个string对象。不用使用尾置返回类型、decltype或者类型别名。  
+`string (&fun())[10];`
+### 为上一题的函数再写三个声明，一个使用类型别名，另一个使用尾置返回类型，最后一个使用decltype关键字。 
+```cpp
+typedef string str_arr[10];
+str_arr& fun();
+
+auto fun()->string(&)[10];
+
+string s[10];
+decltype(s)& fun();  
+我觉得尾置返回类型最好。
+```  
+## 说明在下面的每组声明中第二条语句是何含义。如果有非法的声明，请指出来。
+```cpp
+(a) int calc(int, int);
+	int calc(const int, const int);
+(b) int get();
+	double get();
+(c) int *reset(int *);
+	double *reset(double *);
+(d) char *init(int ht = 24, int wd, char bckgrnd);
+```
+* (a) 非法。因为顶层const 不影响传入函数的对象，所以第二个声明无法与第一个声明区分开来。
+* (b) 非法。对于重载的函数来说，它们应该只有形参的数量和形参的类型不同。返回值与重载无关。
+* (c) 合法。
+* (d) 错误。因为一旦某个形参被赋予了默认值，那么它之后的形参都必须要有默认值。
+## 下面的哪个调用是非法的？为什么？哪个调用虽然合法但显然与程序员的初衷不符？为什么？
+```cpp
+char *init(int ht, int wd = 80, char bckgrnd = ' ');
+(a) init();
+(b) init(24,10);
+(c) init(14,'*');
+```
+* (a) 非法。第一个参数不是默认参数，最少需要一个实参。
+* (b) 合法。
+* (c) 合法，但与初衷不符。字符 * 被解释成 int 传入到了第二个参数。而初衷是要传给第三个参数。
+## 你会把下面的哪个声明和定义放在头文件中？哪个放在源文件中？为什么？
+```cpp
+(a) inline bool eq(const BigInt&, const BigInt&) {...}
+(b) void putValues(int *arr, int size);
+```
+* 全部都放进头文件。(a) 是内联函数`(一般来说，内联机制用于优化规模小、流程直接、频繁调用的函数。)`，(b) 是声明。
