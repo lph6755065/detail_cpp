@@ -934,3 +934,7 @@ int main()
 	return 0;
 }
 ```
+## 使用class 和 struct 时有区别吗？如果有，是什么？
+* class 和 struct 的唯一区别是默认的访问级别不同。
+	* （一）默认继承权限。如果不明确指定，来自class的继承按照private继承处理，来自struct的继承按照public继承处理；
+	* （二）成员的默认访问权限。class的成员默认是private权限，struct默认是public权限。
