@@ -1149,3 +1149,15 @@ int main()
 * begin() 的左边 有无const都可以; 若有const_iterator, 也可以直接改vector的值
 * const_iterator 表示无法用迭代器改值 类似 const *p。
 * const iterator 表示无法改迭代器指向 类似 *const p。
+## 编写函数，接受一对指向vector的迭代器和一个int值。在两个迭代器指定的范围中查找给定的值，返回一个布尔值来指出是否找到。
+```cpp
+	bool find(vector<int>::const_iterator begin, vector<int>::const_iterator end, int i)
+{
+	while (begin++ != end)
+	{
+		if (*begin == i) 
+			return true;
+    }	
+    return false;
+}
+```
