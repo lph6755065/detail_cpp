@@ -1033,4 +1033,17 @@ struct X {
 * (b) 不完全正确。为每个参数都提供了默认值的构造函数也是默认构造函数。
 * (c) 不正确。哪怕没有意义的值也需要初始化。
 * (d) 不正确。只有当一个类没有定义任何构造函数的时候，编译器才会生成一个默认构造函数。
-## 
+## C++之constexpr详解 
+* constexpr表达式是指值不会改变并且在编译过程就能得到计算结果的表达式。声明为constexpr的变量一定是一个const变量，而且必须用常量表达式初始化：
+```cpp
+	constexpr int mf = 20;  //20是常量表达式
+constexpr int limit = mf + 1; // mf + 1是常量表达式
+constexpr int sz = size(); //之后当size是一个constexpr函数时才是一条正确的声明语句
+```
+### 指针和constexpr 
+* 必须明确一点，在constexpr声明中如果定义了一个指针，限定符conxtexpr仅对指针有效，与指针所指的对象无关。
+```cpp
+const int*p = nullptr;        //p是一个指向整形常量的指针
+constexpr int* q = nullptr;   //q是一个指向整数的常量指针
+```
+* p是一个指向常量的指针，q是一个常量指针，其中的关键在于constexpr把它所定义的对象置为了顶层(顶层实际上就是const在星号的右边，指针的方向不能变，所指向的值可以改变)const.
