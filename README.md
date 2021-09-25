@@ -1047,3 +1047,51 @@ const int*p = nullptr;        //p是一个指向整形常量的指针
 constexpr int* q = nullptr;   //q是一个指向整数的常量指针
 ```
 * p是一个指向常量的指针，q是一个常量指针，其中的关键在于constexpr把它所定义的对象置为了顶层(顶层实际上就是const在星号的右边，指针的方向不能变，所指向的值可以改变)const.
+* 使用GNU gcc编译器时，constexpr指针所指变量必须是全局变量或者static变量(既存储在静态数据区的变量)。
+## 编写函数，接受一个istream&参数，返回值类型也是istream&。此函数须从给定流中读取数据，直至遇到文件结束标识时停止。它将读取的数据打印在标准输出上。完成这些操作后，在返回流之前，对流进行复位，使其处于有效状态。
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+istream& func(istream &is)
+{
+	string buf;
+	while (is >> buf)
+		cout << buf << endl;
+	is.clear();
+	return is;
+}
+
+int main()
+{
+	istream& is = func(std::cin);
+	cout << is.rdstate() << endl;
+	return 0;
+}
+```
+## 编写函数，以读模式打开一个文件，将其内容读入到一个string的vector中，将每一行作为一个独立的元素存于vector中。
+```cpp
+void ReadFileToVec(const string& fileName, vector<string>& vec)
+{
+    ifstream ifs(fileName);
+    if (ifs)
+    {
+        string buf;
+        while (ifs >> buf)
+            vec.push_back(buf);
+    }
+}
+``` 
+## 对于下面的程序任务，vector、deque和list哪种容器最为适合？解释你的选择的理由。如果没有哪一种容器优于其他容器，也请解释理由。
+* (a) 读取固定数量的单词，将它们按字典序插入到容器中。我们将在下一章中看到，关联容器更适合这个问题。
+* (b) 读取未知数量的单词，总是将单词插入到末尾。删除操作在头部进行。
+* (c) 从一个文件读取未知数量的整数。将这些数排序，然后将它们打印到标准输出。
+* (a) list ，因为需要频繁的插入操作。
+* (b) deque ，总是在头尾进行插入、删除操作。
+* (c) vector ，不需要进行插入删除操作。
+## 构成迭代器范围的迭代器有何限制？
+* 两个迭代器 begin 和 end需满足以下条件：
+	* 它们指向同一个容器中的元素，或者是容器最后一个元素之后的位置。
+	* 我们可以通过反复递增 begin 来到达 end。换句话说，end 不在 begin 之前。
