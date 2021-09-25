@@ -1142,8 +1142,10 @@ int main()
 ``` 
 ### 总结：
 * cbegin()只能赋值给 const_iterator; 所以不会出现 c语言中 int *p = const int a; 可以通过p改a的值的情况。cbegin()和cend()是C++11新增的，它们返回一个const的迭代器，不能用于修改元素。
+	```cpp 
 	auto i1 = Container.begin();  // i1 is Container<T>::iterator 
 	auto i2 = Container.cbegin(); // i2 is Container<T>::const_iterator
+	```
 * begin() 的左边 有无const都可以; 若有const_iterator, 也可以直接改vector的值
 * const_iterator 表示无法用迭代器改值 类似 const *p。
 * const iterator 表示无法改迭代器指向 类似 *const p。
