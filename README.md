@@ -1095,3 +1095,53 @@ void ReadFileToVec(const string& fileName, vector<string>& vec)
 * 两个迭代器 begin 和 end需满足以下条件：
 	* 它们指向同一个容器中的元素，或者是容器最后一个元素之后的位置。
 	* 我们可以通过反复递增 begin 来到达 end。换句话说，end 不在 begin 之前。
+## c++中iterator，const iterator，const_iterator与begin(),cbegin()
+```cpp
+#include <iostream>
+#include <iterator>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    vector<int> v1 = {0,1,2,3,4,5,6,7};
+    vector<int>::iterator it1 = v1.begin();
+    vector<int>::iterator it2 = v1.end();
+    vector<int>::reverse_iterator it3 = v1.rbegin();
+    vector<int>::reverse_iterator it4 = v1.rend();
+
+
+    vector<int>::const_iterator it5 = v1.begin();       //指向可变，值不变
+    it5++;
+    it5 = it2;
+    //*it5 = 333;  //不可以
+    v1[0] = 333;
+
+    const vector<int>::iterator it6 = v1.begin();       //指向不变，值可变
+    //it6++;  //不可以
+    *it6 = 333;
+
+    const vector<int>::const_iterator it7 = v1.begin(); //指向不变，值不变
+    //it7++;        //不可以
+    //*it7 = 333;   //不可以
+
+    vector<int>::const_iterator it8 = v1.cbegin();      //指向可变，值不变
+    it8++;
+    cout << "cbegin:" << *it8 << endl;
+    //*it8 = 444;   //不可以
+
+    //const vector<int>::iterator it9 = v1.cbegin();    //不可以
+
+    const vector<int>::const_iterator it10 = v1.cbegin();
+    //it10++;       //不可以
+    //*it10 = 333;  //不可以
+
+}
+
+
+``` 
+### 总结：
+* cbegin()只能赋值给 const_iterator; 所以不会出现 c语言中 int *p = const int a; 可以通过p改a的值的情况。
+* begin() 的左边 有无const都可以; 若有const_iterator, 也可以直接改vector的值
+* const_iterator 表示无法用迭代器改值 类似 const *p。
+* const iterator 表示无法改迭代器指向 类似 *const p。
