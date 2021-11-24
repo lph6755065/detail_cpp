@@ -255,6 +255,25 @@ int main()
 ## 函数指针: 一种特殊的指针，它指向函数的入口；
 * 定义一个函数指针p，只能指向返回值为int，形参为两个int的函数. 
 * int (*p)(int,int);  
+```cpp
+#include <iostream>
+using namespace std;
+
+int mmin(int x, int y) {
+    if (x < y) return x;
+    return y;
+}
+int main()
+{
+    int (*f ) (int x, int y);
+    f = mmin;
+    int a = 10, b =20;
+    std::cout << (*f)(a,b) << std::endl;
+
+    return 0;
+}
+
+```
 ## 指针函数:返回指针的函数，一个函数，它的返回值是指针；
 * 这是一个形参为两个int类型，返回值是int型指针的函数
 * int *p(int,int);  
