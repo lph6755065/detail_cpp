@@ -1285,3 +1285,4 @@ return (this->height * this->width * this->length);
 return ((*this).height * (*this).width * (*this).length);
 ```
 * 只能在成员函数中使用，在全局和静态函数中不能使用。
+![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637781099(1).png)
