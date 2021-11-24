@@ -1313,3 +1313,4 @@ int main()
 ## 构造函数和析构函数
 * 在全局中定义的对象，最先调用构造函数。
 * 一般地，越早构造的析构越迟。
+![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637782566(1).jpg)
