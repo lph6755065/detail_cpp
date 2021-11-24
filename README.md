@@ -1275,3 +1275,13 @@ int main()
 }
 
 ```
+* 继承和多重继承只要空类都是1，除了虚继承是8.
+# this指针
+* this 指针指向对象的首地址. `*this`就是this所指向的对象。
+以下的3个用法是一个意思。
+```
+return (height * width * length);
+return (this->height * this->width * this->length);
+return ((*this).height * (*this).width * (*this).length);
+```
+* 只能在成员函数中使用，在全局和静态函数中不能使用。
