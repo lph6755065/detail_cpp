@@ -1245,5 +1245,5 @@ vector<double> dvc2(ivc.begin(), ivc.end());
 ## strcpy和memcpy的区别
 * strcpy ：strcpy 函数和 strcpy_s 函数在拷贝过程中，如果遇到'\0'结束符，那么直接结束拷贝。
 * memcpy ：memcpy 函数拷贝过程中就算遇到'\0'结束符也不会结束0.memcpy 函数内存拷贝的时候，'\0'仅仅是当作了内存中的数据，并不代表拷贝结尾  
-## 判断系统大段还是小端
+## 判断系统大端还是小端
 ![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637757841(1).jpg)
