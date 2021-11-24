@@ -1286,3 +1286,27 @@ return ((*this).height * (*this).width * (*this).length);
 ```
 * 只能在成员函数中使用，在全局和静态函数中不能使用。
 ![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637781099(1).png)
+## 类模板
+```cpp
+#include <iostream>
+using namespace std;
+template<class T>
+class A{
+public:
+  A(T a, T b) : x(a), y(b) {}
+  T add(){
+      return x+y;
+  }
+private:
+    T x,y;
+};
+ 
+int main()
+{
+    A<int>a(1,2);
+     std::cout << a.add()<<endl;
+    A<double>a1(1.1,2.2);
+    std::cout << a1.add();
+    return 0;
+}
+```
