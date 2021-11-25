@@ -1316,6 +1316,7 @@ int main()
 ![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637782566(1).jpg)
 ## 单例模式 
 * 使用类的私有静态指针变量指向类的唯一实例对象，并用共有的静态方法获取该实例。保证程序的整个声明周期里面，实例对象只有一个。
+* 其构造函数是私有的，这样不会在其他地方产生实例。
 ```cpp
 #include <iostream>
 using namespace std;
