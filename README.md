@@ -602,7 +602,12 @@ int main() {
 	derived *p, *q;
 	// p = new base;	//  Compilr Error: 无法从 "base * " 转换为 "derived * "
 
-	// Compile Error: Cannot cast from 'base*' to 'derived*' via dynamic_cast: expression type is not polymorphic(多态的)
+	// Compile Error: Cannot cast from 'base*' to 'derived*' via dynamic_cast: expression type is not polymorphic(
+	
+	
+	
+	
+	的)
 	// p = dynamic_cast<derived *>(new base);
 
 	q = static_cast<derived*>(new base);	// ok, but not recommended
@@ -1285,7 +1290,38 @@ return (this->height * this->width * this->length);
 return ((*this).height * (*this).width * (*this).length);
 ```
 * 只能在成员函数中使用，在全局和静态函数中不能使用。
-![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637781099(1).png)
+![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637781099(1).png)  
+## 多态
+* 向不同对象调用同一个方法，不同对象在执行时会产生不同的行为。
+```cpp
+#include <iostream>
+using namespace std;
+class A {
+public:
+	A(){}
+	virtual void foo() {
+			cout << "this is A"<<endl;
+		}	
+};
+class B : public A {
+public:
+	B() {
+
+	}
+	void foo() {
+		cout << "this is B";
+	}
+};
+int main() {
+	A a;
+	B b;
+
+	a.foo(); 
+	b.foo();//this is A
+			//this is B
+	return 0;
+}
+```
 ## 类模板
 ```cpp
 #include <iostream>
