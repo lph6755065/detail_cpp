@@ -1328,7 +1328,7 @@ public:
 	static Singleton* getInstace() {
 		if (instance == nullptr) {
 			instance = new Singleton();
-			cout << "I am Singleton!";
+			cout << "I am Singleton!"<<endl;
 		}
 		return instance;
 	}
@@ -1336,6 +1336,9 @@ public:
 Singleton* Singleton::instance = nullptr;
 int main() {
 	Singleton* S1 = Singleton::getInstace();
+	Singleton* S2 = Singleton::getInstace();
+	if (S1 == S2) cout << "S1 == S2";//I am Singleton!
+					 //S1 == S2
 	return 0;
 }
 ```
