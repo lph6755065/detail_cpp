@@ -1314,3 +1314,28 @@ int main()
 * 在全局中定义的对象，最先调用构造函数。
 * 一般地，越早构造的析构越迟。
 ![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637782566(1).jpg)
+## 单例模式 
+* 使用类的私有静态指针变量指向类的唯一实例对象，并用共有的静态方法获取该实例。保证程序的整个声明周期里面，实例对象只有一个。
+```cpp
+#include <iostream>
+using namespace std;
+class Singleton {
+private:
+	Singleton(){}
+	static Singleton* instance;
+	~Singleton(){}
+public:
+	static Singleton* getInstace() {
+		if (instance == nullptr) {
+			instance = new Singleton();
+			cout << "I am Singleton!";
+		}
+		return instance;
+	}
+};
+Singleton* Singleton::instance = nullptr;
+int main() {
+	Singleton* S1 = Singleton::getInstace();
+	return 0;
+}
+```
