@@ -973,6 +973,90 @@ int main()
 	* 与当前类有关的接口函数能直接访问类的私有变量。
 * 弊：
 	* 牺牲了封装性与可维护性。
+```cpp
+#include<iostream>
+using namespace std;
+/*
+若一个类为另一个类的友元，则此类的所有成员都能访问对方类的私有成员。
+声明语法：将友元类名在另一个类中使用friend修饰说明。
+*/
+
+/*
+如果声明B类是A类的友元，B类的成员函数就可以访问A类的私有和保护数据，
+但A类的成员函数却不能访问B类的私有、保护数据。
+*/
+class A{
+  friend class B;
+  public:
+    void Display(){
+      cout<<x<<endl;
+    }
+    private:
+      int x;
+};
+class B
+{   public:
+      void Set(int i);
+      void Display();
+    private:
+      A a;
+};
+void B::Set(int i)
+{
+   a.x=i;
+}
+void B::Display()
+{
+   a.Display();
+}
+
+int main(int argc, char const *argv[])
+{
+    B b;
+    b.Set(10);
+    b.Display();
+
+    system("pause");
+    return 0;
+}
+
+/*
+如果声明B类是A类的友元，B类的成员函数就可以访问A类的私有和保护数据，但A类的成员函数却不能访问B类的私有、保护数据
+*/
+```
+```cpp
+//使用友元函数计算两点间距离
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Point{
+  public:
+    Point(int x=0,int y=0):X(x),Y(y){}
+    int GetX(){
+      return X;
+    }
+    int GetY(){
+      return Y;
+    }
+    friend float Distance(Point &a,Point &b);
+  private:
+    int X,Y;//私有数据成员
+};
+//通过将一个模块声明为另一个模块的友元，一个模块能够引用到另一个模块中本是被隐藏的信息。
+float Distance(Point &a, Point &b){
+  double dx = a.X-b.X;
+  double dy = a.Y-b.Y;
+  return sqrt(dx*dx+dy*dy);
+}
+
+int main()
+{  
+    Point p1(3.0,5.0),p2(4.0,6.0);
+    cout<<"两点距离为："<<Distance(p1,p2)<<endl;
+    system("pause");
+    return 0;
+}
+```
 ## 通过this指针使用成员的做法虽然合法，但是有点多余。讨论显示使用指针访问成员的优缺点。
 
 * 优点：
