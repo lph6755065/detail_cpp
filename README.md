@@ -1511,3 +1511,32 @@ void other(void)
 sh: 1: pause: not found
 	
 ```
+### 使用联合体判断大小端 
+* 小端：低地址字节存储在低地址，反之，大端：低->高
+* 联合体的特点是使用数据类型最大的数据作为联合体的大小，因此，char a和int b公用内存地址空间，判断a的值就是判断b的低地址空间的值。
+```cpp
+#include<stdio.h>
+
+union un
+{
+	char a;
+	int b;
+};
+
+int main()
+{
+	union un un1;
+	un1.b = 1;
+
+	if (un1.a == 1)
+	{
+		printf("little-endian\n");
+	}
+	else
+	{
+		printf("big-endian\n");
+	}
+
+	return 0;
+}
+```
