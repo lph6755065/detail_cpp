@@ -1540,3 +1540,58 @@ int main()
 	return 0;
 }
 ```
+### 仿函数
+* 仿函数(functor)，就是使一个类的使用看上去象一个函数。其实现就是类中实现一个operator()，这个类就有了类似函数的行为，就是一个仿函数类了。
+> 有些功能的的代码，会在不同的成员函数中用到，想复用这些代码。
+
+                            1）公共的函数，可以，这是一个解决方法，不过函数用到的一些变量，就可能成为公共的全局变量，再说为了复用这么一片代码，就要单立出一个函数，也不是很好维护。
+
+                            2）仿函数，写一个简单类，除了那些维护一个类的成员函数外，就只是实现一个operator()，在类实例化时，就将要用的，非参数的元素传入类中。
+
+```cpp
+#include <iostream>
+#include <algorithm>
+ 
+using namespace std;
+template<typename T>
+class display
+{
+public:
+	void operator()(const T &x)
+	{
+		cout<<x<<" "; 
+	} 
+}; 
+ 
+ 
+int main()
+{
+	int ia[]={1,2,3,4,5};
+	for_each(ia,ia+5,display<int>()); 
+	
+	return 0; 
+} 
+```
+```cpp
+#include <iostream>
+#include <numeric>
+#include <vector> 
+#include <functional> 
+using namespace std;
+ 
+int main()
+{
+	int ia[]={1,2,3,4,5};
+	vector<int> iv(ia,ia+5);
+	cout<<accumulate(iv.begin(),iv.end(),1,multiplies<int>())<<endl; 
+	
+	cout<<multiplies<int>()(3,5)<<endl;
+	cout<<plus<int>()(3,5)<<endl;
+	cout<<minus<int>()(3,5)<<endl;
+	cout<<negate<int>()(2)<<endl;
+	cout<<greater_equal<int>()(ia[1],ia[0])<<endl;
+	modulus<int>  modulusObj;
+	cout<<modulusObj(3,5)<<endl; // 3 
+	return 0; 
+} 
+```
