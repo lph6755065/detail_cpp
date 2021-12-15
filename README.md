@@ -1656,3 +1656,43 @@ int main() {
 	system(" pause");
 }
 ```
+### 二分法注意：
+```cpp
+#include <stdio.h>
+#include<iostream>
+#include <vector>
+using namespace std;
+void findDuplicate(vector<int>& nums) {
+        int l = 0;
+
+        int r = nums.size() - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            int cnt = 0;
+            for (int c : nums) {
+                if (c <= mid) {
+                    cnt += 1;
+                }
+            }
+            if (cnt > mid) {
+                r = mid ;
+            }else{
+                l = mid + 1;
+            }
+        }
+        cout<<nums[l]<<" ";
+	cout<<l;  
+        //return l;
+        
+    }
+   
+int main()
+{   
+    vector<int> nums = {1, 2, 3, 6, 4, 5, 6};
+    //int res = findDuplicate(arr);
+    findDuplicate(nums);
+    //cout<<res;
+    
+    return 0;
+}
+```
