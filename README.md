@@ -1331,6 +1331,50 @@ vector<double> dvc2(ivc.begin(), ivc.end());
 ## 浅拷贝和深拷贝的区别 
 * 浅拷贝：一般地，发生拷贝时，用到了编译器默认的拷贝构造函数（无参数）（就算自己new了内存也无济于事），这样如果拷贝后的接收对象是指针的话，会让拷贝者和被拷贝者都指向同一个内存地址，这样在析构时候，会造成析构2次，而造成内存泄漏。
 * 深拷贝：一般地，发生深拷贝时，用到了自己定义的拷贝构造函数（有参数的），同时也New了内存，这样拷贝者和被拷贝者指向不同的内存空间。把之前的对象数据完全复制到了新的空间里面。
+```cpp
+#include <stdio.h>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+using namespace std;
+class A{
+    public:
+A(int size) {
+    cout<<"constructor"<<endl;
+    this->size = size;
+    if(size) data = new int[size];
+    for(int i = 0;i < size; ++i) data[i] = i;
+}
+A(const A& o) {
+    cout<<"copy constructor"<<endl;  //深拷贝
+    this->size = o.size;
+    data = new int[size];
+    memcpy(data,o.data,size*sizeof(int));
+}
+A(A &&o) {
+    cout<<"move constructor"<<endl;  //浅拷贝
+    data = o.data;
+    this->size = o.size;
+    o.data = nullptr;
+    o.size = 0;
+}
+
+private:
+    int size = 0;
+    int * data = nullptr;
+};
+
+int main()
+{   
+    A a(10);
+    A b = move(a);
+    
+  
+
+    return 0;
+}
+```
 ## strcpy和memcpy的区别
 * strcpy ：strcpy 函数和 strcpy_s 函数在拷贝过程中，如果遇到'\0'结束符，那么直接结束拷贝。
 * memcpy ：memcpy 函数拷贝过程中就算遇到'\0'结束符也不会结束0.memcpy 函数内存拷贝的时候，'\0'仅仅是当作了内存中的数据，并不代表拷贝结尾  
