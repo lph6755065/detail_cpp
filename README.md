@@ -1709,7 +1709,7 @@ public:
         str = to_string(i);
         cout << "构造函数" << endl; 
     }
-    ~A(){}
+    ~A(){cout<<"析"<<endl;}
     A(const A& other): str(other.str){
         cout << "拷贝构造" << endl;
     }
