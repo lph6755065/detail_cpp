@@ -1696,7 +1696,7 @@ int main()
     return 0;
 }
 ```
-### C++ emplace_back 和 push_back效率区别 . emplace_back传入参数必须是右值时才会触发右值引用。
+### C++ emplace_back 和 push_back效率区别 . emplace_back传入参数必须是右值时才会触发右值引用。不然emplace_back(a)功能和push_back(a)一样。
 ```cpp
 #include <iostream>
 #include <cstring>
