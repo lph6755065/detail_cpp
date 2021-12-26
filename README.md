@@ -1918,3 +1918,67 @@ int main()
 }
  
 ```
+### 力扣151 反转字符串里面的单词 
+```cpp
+#include<string>
+#include<iostream>
+using namespace std;
+  string reverseWords(string s) {
+        int len = s.length(), i = 0;
+        string ans = "";
+        int c = 0;
+        while(i < len){
+            c = 0; //精彩异常 每次刷新c的数值 而且c的值是每个单词的长度
+            while(i < len && s[i] == ' ') i++;  // i = 1,2    i = 8
+            while(i < len && s[i] != ' '){    // end loop i = 6 
+                i++; c++;    
+                 cout << "c: " << c << endl;// i = [3,4,5,6,7]   c = [1-5]              
+            }
+            cout <<endl;
+            cout << "c: " << c << endl;
+            if(c){                                       
+                ans =  s.substr(i - c, c)+ " " + ans;     
+            }
+            
+        }
+         
+        return ans.substr(0, ans.length()-1);
+    }
+int main()
+{
+  string s("  hello world hi ");
+
+    s = reverseWords(s);
+
+
+ //获得字符串s中 从第0位开始的长度为2的字符串//默认时的长度为从开始位置到尾
+
+cout << s<< endl;
+cout<<s.size()<<endl;
+
+}
+``` 
+```cpp
+class Solution {
+public:
+    string reverseWords(string s) {
+        int i = s.size() - 1;
+        string ans;
+        while(i >= 0)
+        {
+            int c = 0;
+            while(i >= 0 && s[i] == ' ') --i;
+            while(i >= 0 && s[i] != ' ')
+            {
+                --i;
+                ++c;
+            }
+            if(c)
+                ans += s.substr(i+1, c) + " ";
+        }
+
+        return ans.substr(0, ans.size()-1);
+    }
+};
+
+```
