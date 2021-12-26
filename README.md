@@ -1869,3 +1869,52 @@ unique_ptr 算是一种较为安全的智能指针了。但是，一个对象只
 两者区别如下：
 
 多个shared_ptr不仅共享一个对象，同时还得共享同一个计数。当最后一个指向对象(和共享计数)的shared_ptr析构时，它需要删除对象和共享计数。
+
+### 二分法用泛型实现  
+```cpp
+#include <iostream>
+ 
+using namespace std;
+ 
+template<typename T>
+int binary_search(const T s[],const int size,const T &m)
+{
+ if(size <= 0){
+  return -1;
+ }
+ int i = size/2;
+ int k = 1;
+ int step = 1;
+ 
+ while(step > 0 && i >= 0 && i < size){
+  step = size/(2*++k);
+  if(m == s[i]){
+   return i;
+  }else if(m > s[i]){
+   i += step;
+  }else{
+   i -= step;
+  }
+ }
+ 
+ return -1;
+}
+ 
+int main()
+{
+ long s[]={1,3,5,6,19,27,38,45,687,6789,10000};
+ 
+ int len = sizeof(s)/sizeof(long);
+ 
+ cout<<"0:"<<binary_search<long>(s,len,1)<<endl;
+ cout<<"1:"<<binary_search<long>(s,len,3)<<endl;
+ cout<<"5:"<<binary_search<long>(s,len,27)<<endl;
+ cout<<"10:"<<binary_search<long>(s,len,10000)<<endl;
+ cout<<"-1:"<<binary_search<long>(s,len,10001)<<endl;
+ cout<<"-1:"<<binary_search<long>(s,len,44)<<endl;
+ cout<<"-1:"<<binary_search<long>(s,len,0)<<endl;
+ 
+ return 0;
+}
+ 
+```
