@@ -1990,3 +1990,8 @@ public:
 	```  
 	- 上述例子说明栈还是有可能是空的  这样会报异常
 	
+	```cpp
+	if (st.empty() || s != st.top()) {
+                st.push(s);
+	```  
+	- st.empty() || s != st.top()顺序不能颠倒 s != st.top()  || st.empty() 不然也会报错
