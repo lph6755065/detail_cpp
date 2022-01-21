@@ -1379,6 +1379,21 @@ int main()
 * strcpy ：strcpy 函数和 strcpy_s 函数在拷贝过程中，如果遇到'\0'结束符，那么直接结束拷贝。
 * memcpy ：memcpy 函数拷贝过程中就算遇到'\0'结束符也不会结束0.memcpy 函数内存拷贝的时候，'\0'仅仅是当作了内存中的数据，并不代表拷贝结尾  
 ## 判断系统大端还是小端
+	
+假如现有一32位int型数0x12345678，那么其MSB(Most Significant Byte，最高有效字节)为0x12，其LSB (Least Significant Byte，最低有效字节)为0x78，
+```cpp
+#include <iostream>
+using namespace std;
+   int main(){
+	int a = 0x12345678;
+	char b = *((char*)(&a));		// 指针方式其实就是共用体的本质
+	if (0x78 == b)
+		cout << "小端" << endl;
+	else if (0x12 == b)
+		cout << "大端" << endl;
+	return 0;
+}
+```
 ![](https://github.com/lph6755065/detail_cpp/blob/main/picture/1637757841(1).jpg)
 ## 静态函数和数据
 * 静态数据成员在类中声明，在类外定义，定义前需要加`类名::`。一次定义类中所有对象共享该数据。
